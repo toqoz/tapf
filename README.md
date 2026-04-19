@@ -25,7 +25,7 @@ nix run github:toqoz/tapf -- ./test_*.sh
     };
   };
 
-  outputs = { self, nixpkgs, tapf, ... }:
+  outputs = { nixpkgs, tapf, ... }:
     let
       system = "aarch64-darwin"; # or your system
     in {
