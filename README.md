@@ -5,6 +5,38 @@ TAP producer for shell scripts
 - 1 file 1 test
 - exit code is test result
 
+## Installation
+
+### Try it with Nix
+
+```
+nix run github:toqoz/tapf -- ./test_*.sh
+```
+
+### Add to your flake.nix
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    tapf = {
+      url = "github:toqoz/tapf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { self, nixpkgs, tapf, ... }:
+    let
+      system = "aarch64-darwin"; # or your system
+    in {
+      # Example: add to a devShell
+      devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
+        packages = [ tapf.packages.${system}.default ];
+      };
+    };
+}
+```
+
 ## Usage
 
 ```
